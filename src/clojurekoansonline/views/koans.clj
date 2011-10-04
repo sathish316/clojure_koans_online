@@ -5,7 +5,7 @@
         hiccup.core
         hiccup.page-helpers))
 
-(def koan-folder (clojure.java.io/file "/Users/sathish/code/clojure/clojurekoansonline/koans"))
+(def koan-folder (clojure.java.io/file "./koans"))
 
 (def koan-names (map #(.getName %) (file-seq koan-folder)))
 
