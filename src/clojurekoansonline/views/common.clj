@@ -4,10 +4,9 @@
         hiccup.page-helpers))
 
 (defpartial layout [& content]
-            (html5
-              [:head
-               [:title "clojurekoansonline"]
-               (include-css "/css/reset.css")]
-              [:body
-               [:div#wrapper
-                content]]))
+  (html5
+   [:head
+    [:title "Clojure Koans Online"]]
+   [:body
+    [:div#wrapper
+     content]]))

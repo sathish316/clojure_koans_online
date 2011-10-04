@@ -1,10 +1,10 @@
-(ns clojurekoansonline.views.welcome
+(ns clojurekoansonline.views.koans
   (:require [clojurekoansonline.views.common :as common]
             [noir.content.pages :as pages])
   (:use noir.core
         hiccup.core
         hiccup.page-helpers))
 
-(defpage "/welcome" []
+(defpage "/koans" []
   (html5
-   [:h1 "Welcome to Clojure Koans"]))
+   [:h1 "Koans"]))
