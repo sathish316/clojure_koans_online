@@ -27,12 +27,10 @@
    [:h1 "Koans"]
    (koan-list koan-names)))
 
-(defpartial line-of-code [line]
-  [:div {:class "code"} line]
-  )
-
 (defpage "/koan" {:keys [name]}
   (html5
+   (include-css "./css/koan.css")
+   (include-js "./js/ace/ace.js" "./js/ace/mode-clojure.js" "./js/ace/theme-twilight.js" "./js/ace/keybinding-vim.js" "./js/koan.js")
    [:h1 name]
-   (map line-of-code (read-lines (koan-path name)))
+   [:div {:id "editor"} (slurp (koan-path name))]
   ))
