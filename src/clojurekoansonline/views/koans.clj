@@ -5,12 +5,18 @@
         hiccup.core
         hiccup.page-helpers))
 
+(use '[clojure.contrib.duck-streams :only (read-lines)])
+
 (def koan-folder (clojure.java.io/file "./koans"))
 
-(def koan-names (map #(.getName %) (file-seq koan-folder)))
+(def koan-names (map #(.getName %) (rest (file-seq koan-folder))))
+
+(defn koan-path [koan-name]
+     (str "./koans/" koan-name))
 
 (defpartial goto-koan [koan]
-  [:li koan])
+  [:li
+   [:a {:href (str "./koan?name=" koan)} koan]])
 
 (defpartial koan-list [koans]
   [:ul#koans
@@ -21,4 +27,12 @@
    [:h1 "Koans"]
    (koan-list koan-names)))
 
+(defpartial line-of-code [line]
+  [:div {:class "code"} line]
+  )
 
+(defpage "/koan" {:keys [name]}
+  (html5
+   [:h1 name]
+   (map line-of-code (read-lines (koan-path name)))
+  ))
