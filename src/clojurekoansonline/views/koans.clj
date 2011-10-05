@@ -1,11 +1,11 @@
 (ns clojurekoansonline.views.koans
   (:require [clojurekoansonline.views.common :as common]
-            [noir.content.pages :as pages])
+            [noir.content.pages :as pages]
+            [noir.response :as response])
   (:use noir.core
         hiccup.core
         hiccup.page-helpers))
-
-(use '[clojure.contrib.duck-streams :only (read-lines)])
+        
 
 (def koan-folder (clojure.java.io/file "./koans"))
 
@@ -30,8 +30,16 @@
 (defpage "/koan" {:keys [name]}
   (html5
    (include-css "./css/koan.css" "./css/button.css")
-   (include-js "./js/ace/ace.js" "./js/ace/mode-clojure.js" "./js/ace/theme-twilight.js" "./js/ace/keybinding-vim.js" "./js/koan.js")
+   (include-js "./js/ace/ace.js" "./js/ace/mode-clojure.js" "./js/ace/theme-twilight.js" "./js/jquery.min.js" "./js/koan.js")
    [:h1 name
-    [:button {:class "cupid-green run-koan"} "Run Koan"]]
+    [:button {:class "cupid-green run-koan"} "Run Koan"]
+    [:span {:id "status"} ""]]
    [:div {:id "editor"} (slurp (koan-path name))]
+
   ))
+
+(defpage [:post "/eval"] {:keys [code]}
+  (use 'clojurekoansonline.models.meditations)
+  (load-string code)
+  (response/json {:status "PASS"})
+  )

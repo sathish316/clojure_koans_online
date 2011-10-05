@@ -10,5 +10,14 @@
 }
 
 button.run-koan {
-    margin-left: 220px;
+    margin-left: 150px;
+    margin-right: 25px;
+}
+
+#status.PASS{
+    color: green;
+}
+
+#status.FAIL{
+    color: red;
 }
