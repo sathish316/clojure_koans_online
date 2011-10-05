@@ -8,3 +8,7 @@
         width: 600px;
         height: 600px;
 }
+
+button.run-koan {
+    margin-left: 220px;
+}

@@ -29,8 +29,9 @@
 
 (defpage "/koan" {:keys [name]}
   (html5
-   (include-css "./css/koan.css")
+   (include-css "./css/koan.css" "./css/button.css")
    (include-js "./js/ace/ace.js" "./js/ace/mode-clojure.js" "./js/ace/theme-twilight.js" "./js/ace/keybinding-vim.js" "./js/koan.js")
-   [:h1 name]
+   [:h1 name
+    [:button {:class "cupid-green run-koan"} "Run Koan"]]
    [:div {:id "editor"} (slurp (koan-path name))]
   ))
