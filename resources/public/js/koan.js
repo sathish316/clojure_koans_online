@@ -12,13 +12,11 @@ $(function() {
       url: "./eval",
       data: {code: code},
       success: function(data){
+        console.log(data);
         $('#status').html(data.status);
         $('#status').removeClass().addClass(data.status);
-        console.log("success");
       },
       error: function(data){
-        $('#status').html(data.status);
-        $('#status').removeClass().addClass(data.status);
         console.log("failed");
       }
     })

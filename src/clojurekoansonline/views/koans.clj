@@ -40,6 +40,9 @@
 
 (defpage [:post "/eval"] {:keys [code]}
   (use 'clojurekoansonline.models.meditations)
-  (load-string code)
-  (response/json {:status "PASS"})
+  (try
+   (load-string code)
+   (response/json {:status "PASS"})
+   (catch Exception e
+     (response/json {:status "FAIL" :message (.getMessage e)})))
   )
