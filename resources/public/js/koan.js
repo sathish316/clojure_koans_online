@@ -6,11 +6,12 @@ $(function() {
   editor.getSession().setMode(new ClojureMode());
 
   function findErrorLine(assertionError){
-    var line = assertionError.split("\n")[1];
-    console.log(line);
+    var line = assertionError.split("\n")[0];
+    var assertionMessage = "Assert failed: ";
+    line = line.substr(line.indexOf(assertionMessage) + assertionMessage.length);
     var lineNumber = -1
     $(editor.getSession().getValue().split("\n")).each(function(index, currentLine){
-      if(line == currentLine.trim()){
+      if(currentLine.indexOf(line) >= 0){
         lineNumber = index;
         return false;
       }
@@ -25,7 +26,6 @@ $(function() {
       url: "./eval",
       data: {code: code},
       success: function(data){
-        console.log(data);
         $('#status').html(data.status);
         $('#status').removeClass().addClass(data.status);
         if (data.status == 'FAIL'){
