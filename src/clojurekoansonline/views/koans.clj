@@ -9,22 +9,42 @@
 
 (def koan-folder (clojure.java.io/file "./koans"))
 
-(def koan-names (map #(.getName %) (rest (file-seq koan-folder))))
+(def koan-names
+     ["equalities"
+      "lists"
+      "vectors"
+      "sets"
+      "maps"
+      "functions"
+      "conditionals"
+      "higher_order_functions"
+      "runtime_polymorphism"
+      "lazy_sequences"
+      "sequence_comprehensions"
+      "creating_functions"
+      "recursion"
+      "destructuring"
+      "refs"
+      "atoms"
+      "macros"
+      "datatypes"
+      "java_interop"])
 
 (defn koan-path [koan-name]
-     (str "./koans/" koan-name))
+     (str "./koans/" koan-name ".clj"))
 
 (defpartial goto-koan [koan]
   [:li
    [:a {:href (str "./koan?name=" koan)} koan]])
 
 (defpartial koan-list [koans]
-  [:ul#koans
+  [:ol#koans
    (map goto-koan koans)])
 
 (defpage "/koans" []
   (html5
-   [:h1 "Koans"]
+   (include-css "./css/koan.css")
+   [:h1 [:img {:class "logo" :src "http://clojure.org/file/view/clojure-icon.gif"}] "Clojure Koans"]
    (koan-list koan-names)))
 
 (defpage "/koan" {:keys [name]}
