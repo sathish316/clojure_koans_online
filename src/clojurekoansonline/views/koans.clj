@@ -44,11 +44,14 @@
   [:span "Based on the original "]
   [:a {:href "https://github.com/functional-koans/clojure-koans"} "Functional Koans/Clojure Koans"])
 
+(defpartial clojure-logo []
+  [:img {:class "logo" :src "http://clojure.org/file/view/clojure-icon.gif"}])
+
 (defpage "/" []
   (html5
    (include-css "./css/koan.css")
    (include-js "./js/ga.js")
-   [:h1 [:img {:class "logo" :src "http://clojure.org/file/view/clojure-icon.gif"}] "Clojure Koans"]
+   [:h1 (clojure-logo) "Clojure Koans"]
    (original-clojure-koans)
    (koan-list koan-names)))
 
@@ -56,7 +59,7 @@
   (html5
    (include-css "./css/koan.css" "./css/button.css")
    (include-js "./js/ace/ace.js" "./js/ace/mode-clojure.js" "./js/ace/theme-twilight.js" "./js/jquery.min.js" "./js/koan.js" "./js/ga.js")
-   [:h1 name
+   [:h1 (clojure-logo) name
     [:button {:class "cupid-green run-koan"} "Run Koan"]
     [:span {:id "status"} ""]]
    (original-clojure-koans)
