@@ -1,6 +1,5 @@
 (ns clojurekoansonline.views.koans
   (:require [clojurekoansonline.views.common :as common]
-            [noir.content.pages :as pages]
             [noir.response :as response])
   (:use noir.core
         hiccup.core
@@ -41,7 +40,7 @@
   [:ol#koans
    (map goto-koan koans)])
 
-(defpage "/koans" []
+(defpage "/" []
   (html5
    (include-css "./css/koan.css")
    [:h1 [:img {:class "logo" :src "http://clojure.org/file/view/clojure-icon.gif"}] "Clojure Koans"]
