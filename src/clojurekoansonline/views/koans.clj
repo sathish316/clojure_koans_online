@@ -40,10 +40,15 @@
   [:ol#koans
    (map goto-koan koans)])
 
+(defpartial original-clojure-koans []
+  [:span "Based on the original "]
+  [:a {:href "https://github.com/functional-koans/clojure-koans"} "Functional Koans/Clojure Koans"])
+
 (defpage "/" []
   (html5
    (include-css "./css/koan.css")
    [:h1 [:img {:class "logo" :src "http://clojure.org/file/view/clojure-icon.gif"}] "Clojure Koans"]
+   (original-clojure-koans)
    (koan-list koan-names)))
 
 (defpage "/koan" {:keys [name]}
@@ -53,6 +58,7 @@
    [:h1 name
     [:button {:class "cupid-green run-koan"} "Run Koan"]
     [:span {:id "status"} ""]]
+   (original-clojure-koans)
    [:div {:id "editor"} (slurp (koan-path name))]
 
   ))
