@@ -1,6 +1,7 @@
 # clojurekoansonline
 
-A website written in noir. 
+Port of Clojure Koans online written in Noir.
+Based on the original Clojure koans: https://github.com/functional-koans/clojure-koans
 
 ## Usage
 
