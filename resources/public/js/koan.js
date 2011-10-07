@@ -18,7 +18,7 @@ $(function() {
     return lineNumber;
   }
 
-  $('.run-koan').click(function(){
+  function executeKoan(){
     var code = editor.getSession().getValue();
     $.ajax({
       type: "POST",
@@ -38,5 +38,19 @@ $(function() {
         console.log("failed");
       }
     })
+  }
+
+  $('.run-koan').click(executeKoan);
+
+  // Keyboard shortcut
+  var canon = require("pilot/canon");
+  canon.addCommand({
+    name: "save",
+    bindKey: {
+      win: "Ctrl-R",
+      mac: "Command-R",
+      sender: "editor"
+    },
+    exec: executeKoan
   });
 });
