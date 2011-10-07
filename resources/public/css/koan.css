@@ -5,6 +5,10 @@
     vertical-align: middle;
 }
 
+.hidden {
+    visibility: hidden;
+}
+
 #editor { 
     margin: 0;
     position: absolute;

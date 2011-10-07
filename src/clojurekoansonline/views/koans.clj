@@ -4,9 +4,6 @@
   (:use noir.core
         hiccup.core
         hiccup.page-helpers))
-        
-
-(def koan-folder (clojure.java.io/file "./koans"))
 
 (def koan-names
      ["equalities"
@@ -29,20 +26,26 @@
       "datatypes"
       "java_interop"])
 
+(defn next-koan [koan-name]
+  (koan-names (inc (.indexOf koan-names koan-name))))
+
 (defn koan-path [koan-name]
-     (str "./koans/" koan-name ".clj"))
+  (str "./koans/" koan-name ".clj"))
+
+(defn koan-url [koan]
+  (str "./koan?name=" koan))
 
 (defpartial goto-koan [koan]
   [:li
-   [:a {:href (str "./koan?name=" koan)} koan]])
+   [:a {:href (koan-url koan)} koan]])
 
 (defpartial koan-list [koans]
   [:ol#koans
    (map goto-koan koans)])
 
 (defpartial original-clojure-koans []
-  [:span "Based on the original "]
-  [:a {:href "https://github.com/functional-koans/clojure-koans"} "Functional Koans/Clojure Koans"])
+  [:div "Based on the original "
+   [:a {:href "https://github.com/functional-koans/clojure-koans"} "Functional Koans/Clojure Koans"]])
 
 (defpartial clojure-logo []
   [:img {:class "logo" :src "http://clojure.org/file/view/clojure-icon.gif"}])
@@ -50,7 +53,7 @@
 (defpage "/" []
   (html5
    (include-css "./css/koan.css")
-   (include-js "./js/ga.js")
+   (include-js "./js/jquery.min.js" "./js/ga.js")
    [:h1 "Clojure Koans"]
    (original-clojure-koans)
    (koan-list koan-names)))
@@ -61,9 +64,10 @@
    (include-js "./js/ace/ace.js" "./js/ace/mode-clojure.js" "./js/ace/theme-twilight.js" "./js/jquery.min.js" "./js/koan.js" "./js/ga.js")
    [:h1 name
     [:button {:class "cupid-green run-koan"} "Run Koan"]
-    [:span {:id "status"} ""]]
+    [:span#status ""]]
+   [:a#next_koan {:class "hidden" :href (koan-url (next-koan name))} (str "Go to Next koan > " (next-koan name))]
    (original-clojure-koans)
-   [:div {:id "editor"} (slurp (koan-path name))]
+   [:div#editor (slurp (koan-path name))]
 
   ))
 

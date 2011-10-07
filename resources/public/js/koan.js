@@ -7,8 +7,7 @@ $(function() {
 
   function findErrorLine(assertionError){
     var line = assertionError.split("\n")[0];
-    var assertionMessage = "Assert failed: ";
-    line = line.substr(line.indexOf(assertionMessage) + assertionMessage.length);
+    line = line.substr(line.lastIndexOf(": ") + 2);
     var lineNumber = -1
     $(editor.getSession().getValue().split("\n")).each(function(index, currentLine){
       if(currentLine.indexOf(line) >= 0){
@@ -31,6 +30,8 @@ $(function() {
         if (data.status == 'FAIL'){
           var lineNumber = findErrorLine(data.message);
           editor.getSession().setAnnotations([{ row: lineNumber, column: 0, text: "Assertion error", type: "error"}]);
+        } else {
+          $('#next_koan').removeClass('hidden');
         }
       },
       error: function(data){
